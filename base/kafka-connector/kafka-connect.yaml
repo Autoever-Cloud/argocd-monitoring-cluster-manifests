@@ -39,14 +39,13 @@ spec:
   
   # 2단계에서 설정한 Taint & Toleration 적용
   template:
-    pod:
-      nodeSelector:
-        kafka-connect-node: "true"
-      tolerations:
-        - key: "kafka-connect-node"
-          operator: "Equal"
-          value: "true"
-          effect: "NoSchedule"
+    nodeSelector:
+      kafka-connect-node: "true"
+    tolerations:
+      - key: "kafka-connect-node"
+        operator: "Equal"
+        value: "true"
+        effect: "NoSchedule"
   
   # Kafka Connect의 기본 설정
   config:
