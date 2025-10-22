@@ -45,6 +45,14 @@ spec:
           operator: "Equal"
           value: "true"
           effect: "NoSchedule"
+      affinity: 
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: kafka-connect-node
+                values:
+                - "true"
   
   # Kafka Connect의 기본 설정
   config:
