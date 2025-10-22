@@ -28,12 +28,12 @@ for INDEX in $INDEX_LIST; do
   PHASE=$(curl -s -k -u "$ES_USER:$ES_PASS" "$ES_HOST/$INDEX/_ilm/explain" | jq -r '.indices | .[].phase')
   
   # 3. 'warm' 단계가 아니면 건너뛰기
-  if [ "$PHASE" != "warm" ]; then
+  if [ "$PHASE" != "cold" ]; then
     echo "  -> Phase is '$PHASE'. Skipping."
     continue
   fi
   
-  echo "🔥 Found WARM index: $INDEX. Starting archival process..."
+  echo "🔥 Found COLD index: $INDEX. Starting archival process..."
   
   # 날짜와 인덱스 이름을 포함한 스냅샷 이름 생성 (Kubernetes에서 pod 이름이 고유하므로 더 간단하게)
   SNAPSHOT_NAME="snapshot-$(date +%Y%m%d%H%M%S)-${INDEX}"
