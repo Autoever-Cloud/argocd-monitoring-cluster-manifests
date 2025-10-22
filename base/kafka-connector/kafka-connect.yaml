@@ -52,10 +52,10 @@ spec:
           requiredDuringSchedulingIgnoredDuringExecution:
             nodeSelectorTerms:
             - matchExpressions:
-              - key: kafka-connect-node
+              - key: kubernetes.io/hostname
                 operator: In  # <-- 'In' (또는 'Exists') 오퍼레이터가 필요합니다.
                 values:
-                - "true"
+                - lmv-kafka
     #   nodeAffinity:
     # required:
     #   nodeSelectorTerms:
