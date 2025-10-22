@@ -40,31 +40,21 @@ spec:
   # 2단계에서 설정한 Taint & Toleration 적용
   template:
     pod:
-      # nodeSelector:
-      #   kafka-connect-node: "true"
+      affinity: 
+        nodeAffinity:
+          required:
+            nodeSelectorTerms:
+            - matchExpressions:
+                - key: kubernetes.io/hostname
+                  operator: In 
+                  values:
+                  - lmv-kafka
       tolerations:
         - key: "kafka-connect-node"
           operator: "Equal"
           value: "true"
           effect: "NoSchedule"
-      affinity: 
-        nodeAffinity:
-          requiredDuringSchedulingIgnoredDuringExecution:
-            nodeSelectorTerms:
-            - matchExpressions:
-              - key: kubernetes.io/hostname
-                operator: In  # <-- 'In' (또는 'Exists') 오퍼레이터가 필요합니다.
-                values:
-                - lmv-kafka
-    #   nodeAffinity:
-    # required:
-    #   nodeSelectorTerms:
-    #     - matchExpressions:
-    #         - key: kubernetes.io/hostname
-    #           operator: In
-    #           values:
-    #             - lmv-worker1   # Prometheus를 고정할 노드 이름
-
+      
   
   # Kafka Connect의 기본 설정
   config:
